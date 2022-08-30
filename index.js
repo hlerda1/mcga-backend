@@ -1,10 +1,16 @@
 const express = require('express')
 const products = require('./data/products.json')
+const companies = require('./data/companies.json')
+const employees = require('./data/employees.json')
 const app = express()
 const port = 3000
 
 app.get('/helloWorld', (req, res) => {
   res.send('Hello World!')
+})
+
+app.get('/login', (req, res) => {
+  res.send('LOGIN')
 })
 
 app.get('/person/id/:id', (req, res) => {
@@ -18,13 +24,39 @@ app.get('/products', (req, res) => {
   res.json(products)
 })
 
-app.get('/products/:id', (req, res) => {
-  res.json(filtrar(req.params.id))
+app.get('/companies', (req, res) => {
+  res.json(companies)
 })
 
-const filtrar = (id) => {
+app.get('/employees', (req, res) => {
+  res.json(employees)
+})
+
+app.get('/products/:id', (req, res) => {
+  res.json(filtrarProducts(req.params.id))
+})
+
+app.get('/companies/:id', (req, res) => {
+  res.json(filtrarCompanies(req.params.id))
+})
+
+app.get('/employees/:id', (req, res) => {
+  res.json(filtrarEmployees(req.params.id))
+})
+
+const filtrarProducts = (id) => {
   let productos = products.filter(prod => prod.id == id)
-  return productos
+  return productos  
+}
+
+const filtrarCompanies = (id) => {
+  let companias = companies.filter(comp => comp.id == id)
+  return companias  
+}
+
+const filtrarEmployees = (id) => {
+  let empleados = employees.filter(emp => emp.id == id)
+  return empleados  
 }
 
 

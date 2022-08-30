@@ -1,0 +1,12 @@
+[
+    {"id":1, "name":"Jose Perez", "profesion":"Arquitecto", "age":45, "level_of_study":"Universitario completo"},
+    {"id":2, "name":"Jose Duarte", "profesion":"Arquitecto", "age":34, "level_of_study":"Universitario completo"},
+    {"id":3, "name":"Luisa Guerrero", "profesion":"Abogado", "age":56, "level_of_study":"Universitario completo"},
+    {"id":4, "name":"Martin Lomas", "profesion":"Carnicero", "age":23, "level_of_study":"Secundario completo"},
+    {"id":5, "name":"Maria Estella", "profesion":"Carnicero", "age":35, "level_of_study":"Secundario incompleto"},
+    {"id":6, "name":"Jorge Mercado", "profesion":"Arquitecto", "age":39, "level_of_study":"Universitario completo"},
+    {"id":7, "name":"Julieta Semino", "profesion":"Abogado", "age":50, "level_of_study":"Secundario incompleto"},
+    {"id":8, "name":"Daniela Letre", "profesion":"Albañil", "age":33, "level_of_study":"Universitario completo"},
+    {"id":9, "name":"Laura Guardiola", "profesion":"Carnicero", "age":28, "level_of_study":"Secundario completo"},
+    {"id":10, "name":"Lautaro Rojas", "profesion":"Contador", "age":44, "level_of_study":"Universitario completo"}
+]

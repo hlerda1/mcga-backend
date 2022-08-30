@@ -1,0 +1,7 @@
+[
+    {"id":1,"companyName":"Rosario Arq", "numberEmplyees": 0, "profesion":"Arquitecto", "employeeList": []},
+    {"id":2,"companyName":"Rosario Const", "numberEmplyees": 0, "profesion":"Albañil", "employeeList": []},
+    {"id":3,"companyName":"Rosario Contaduria", "numberEmplyees": 0, "profesion":"Contador", "employeeList": []},
+    {"id":4,"companyName":"Rosario Carnes", "numberEmplyees": 0, "profesion":"Carnicero", "employeeList": []},
+    {"id":5,"companyName":"Rosario Legal", "numberEmplyees": 0, "profesion":"Abogado", "employeeList": []}
+]
