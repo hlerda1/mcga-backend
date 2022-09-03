@@ -5,6 +5,7 @@ const companies = require('./data/companies.json')
 const employees = require('./data/employees.json')
 const { restart } = require('nodemon')
 const { json } = require('express')
+const { exit } = require('process')
 const app = express()
 const port = 3000
 
@@ -30,9 +31,23 @@ app.post("/products/add", (req, res) => {
   res.json(newProd);
 });
 
-app.delete("/products/delete", (req, res) => {
-  console.log(req.body)
-  
+//Delete option, incomplete
+app.delete("/products/delete/id/:id", (req, res) => {
+  console.log(req.body) 
+  let resp = 'value not found' 
+  let id = 0;
+  id = req.params.id;
+  for(let i = 0; i < products.length; i++){
+    if(id == products[i].id){
+      products.splice(i, 1);
+      resp = 'Deleted Value: ' + id
+    }
+    // id == products[i].id ? (products.splice(i, 1), resp = 'Deleted Value: ' + id):();
+  }
+  filesystem.writeFile("./data/products.json", JSON.stringify(products), (err) => {
+    //if (err) { res.sendError(500, 'Error While Saving Data'); }
+  });
+  res.send(resp)
 })
 
 app.get('/helloWorld', (req, res) => {
