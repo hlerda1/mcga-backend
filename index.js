@@ -20,6 +20,8 @@ app.post("/products/add", (req, res) => {
     id: req.body.id,
     name: req.body.name,
     price: req.body.price,
+    category: req.body.category,
+    stock: req.body.stock
   };
   if (!newProd.id){
     res.sendStatus(400);
@@ -32,18 +34,31 @@ app.post("/products/add", (req, res) => {
 });
 
 //Delete option, incomplete
+// app.delete("/products/delete/id/:id", (req, res) => {
+//   console.log(req.body) 
+//   let resp = 'value not found' 
+//   let id = 0;
+//   id = req.params.id;
+//   for(let i = 0; i < products.length; i++){
+//     if(id == products[i].id){
+//       products.splice(i, 1);
+//       resp = 'Deleted Value: ' + id
+//     }
+//     // id == products[i].id ? (products.splice(i, 1), resp = 'Deleted Value: ' + id):();
+//   }
+//   filesystem.writeFile("./data/products.json", JSON.stringify(products), (err) => {
+//     //if (err) { res.sendError(500, 'Error While Saving Data'); }
+//   });
+//   res.send(resp)
+// })
+
+//Delete Endpoint
 app.delete("/products/delete/id/:id", (req, res) => {
-  console.log(req.body) 
-  let resp = 'value not found' 
-  let id = 0;
-  id = req.params.id;
-  for(let i = 0; i < products.length; i++){
-    if(id == products[i].id){
-      products.splice(i, 1);
-      resp = 'Deleted Value: ' + id
-    }
-    // id == products[i].id ? (products.splice(i, 1), resp = 'Deleted Value: ' + id):();
-  }
+  let resp = '';
+  let idProduct = parseInt(req.params.id);
+  const index = products.findIndex(function (product) {return product.id == idProduct;});
+  index < 0 ? (resp = 'value not found'):(products.splice(index, 1), resp = 'Deleted Value: ' + idProduct);
+
   filesystem.writeFile("./data/products.json", JSON.stringify(products), (err) => {
     //if (err) { res.sendError(500, 'Error While Saving Data'); }
   });
