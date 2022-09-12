@@ -1,22 +1,55 @@
+require("dotenv").config();
 const express = require('express')
+const mongoose = require('mongoose')
 const filesystem = require('fs')
-const products = require('./data/products.json')
-const companies = require('./data/companies.json')
-const employees = require('./data/employees.json')
+const products = require('../data/products.json')
+const companies = require('../data/companies.json')
+const employees = require('../data/employees.json')
 const { restart } = require('nodemon')
 const { json } = require('express')
 const { exit } = require('process')
 const app = express()
 const port = 3000
+const router = require("./routes");
 
 app.use(express.json());
+app.use(express.static("public"));
+app.use(router);
 
+mongoose.connect(process.env.DATABASE_URL)
+  .then(() => {
+    console.log("🟢 DB Connected");
+    app.listen({ port: process.env.PORT }, () => {
+      console.log(`🚗 Server running on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("🔴 There was an error on the DB connection method.");
+    console.log(err);
+  });
+
+
+// READ APIS
+app.get('/products', (req, res) => {
+  res.json(products)
+})
+
+app.get('/products/:id', (req, res) => {
+  res.json(filterProducts(req.params.id))
+})
+
+//Filtering function
+const filterProducts = (id) => {
+  let productos = products.filter(prod => prod.id == id)
+  return productos  
+}
+// READ APIS
+  
+
+//REATE API
 app.post("/products/add", (req, res) => {
   console.log(req.body)
   const newProd = {
-    // id: "1001",
-    // name: "cherry - rootbeer",
-    // price: "$4.56"
     id: req.body.id,
     name: req.body.name,
     price: req.body.price,
@@ -52,12 +85,12 @@ app.post("/products/add", (req, res) => {
 //   res.send(resp)
 // })
 
-//Delete Endpoint
+// DELETE API
 app.delete("/products/delete/id/:id", (req, res) => {
   let resp = '';
   let idProduct = parseInt(req.params.id);
   const index = products.findIndex(function (product) {return product.id == idProduct;});
-  index < 0 ? (resp = 'value not found'):(products.splice(index, 1), resp = 'Deleted Value: ' + idProduct);
+  index < 0 ? (resp = 'value not found'):(products.splice(index, 1), resp = `Deleted Value: ${idProduct}`);
 
   filesystem.writeFile("./data/products.json", JSON.stringify(products), (err) => {
     //if (err) { res.sendError(500, 'Error While Saving Data'); }
@@ -65,6 +98,7 @@ app.delete("/products/delete/id/:id", (req, res) => {
   res.send(resp)
 })
 
+// UPDATE API
 app.patch("/products/update/id/:id", (req, res) => {
   let resp = '';
   let idProduct = parseInt(req.params.id);
@@ -75,13 +109,15 @@ app.patch("/products/update/id/:id", (req, res) => {
     products[index].price = req.body.price,
     products[index].category = req.body.category,
     products[index].stock = req.body.stock,
-    resp = 'Modified Value: \n' + products[index].id);
+    resp = `Modified Value: ${products[index].id}`);
   filesystem.writeFile("./data/products.json", JSON.stringify(products), (err) => {
     //if (err) { res.sendError(500, 'Error While Saving Data'); }
   });  
   res.send(resp)
 })
 
+
+//////*APIs for educational porpouses*//////
 app.get('/helloWorld', (req, res) => {
   res.send('Hello World!')
 })
@@ -97,20 +133,12 @@ app.get('/person/id/:id', (req, res) => {
   })
 })
 
-app.get('/products', (req, res) => {
-  res.json(products)
-})
-
 app.get('/companies', (req, res) => {
   res.json(companies)
 })
 
 app.get('/employees', (req, res) => {
   res.json(employees)
-})
-
-app.get('/products/:id', (req, res) => {
-  res.json(filterProducts(req.params.id))
 })
 
 app.get('/companies/:id', (req, res) => {
@@ -121,11 +149,6 @@ app.get('/employees/:id', (req, res) => {
   res.json(filtrarEmployees(req.params.id))
 })
 
-const filterProducts = (id) => {
-  let productos = products.filter(prod => prod.id == id)
-  return productos  
-}
-
 const filtrarCompanies = (id) => {
   let companias = companies.filter(comp => comp.id == id)
   return companias  
@@ -135,6 +158,7 @@ const filtrarEmployees = (id) => {
   let empleados = employees.filter(emp => emp.id == id)
   return empleados  
 }
+//////*APIs for educational porpouses*//////
 
 
 app.listen(port, () => {
