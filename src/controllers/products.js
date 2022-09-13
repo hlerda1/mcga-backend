@@ -1,7 +1,7 @@
 const Products = require("../models/products");
 
 const getAll = (req, res) => {
-    Profiles.find({ isDeleted: false })
+    Products.find({ isDeleted: false })
       .then((data) => res.json({ data }))
       .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
   }
