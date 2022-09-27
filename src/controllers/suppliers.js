@@ -29,10 +29,10 @@ const deleteSupp = (req, res) => {
 };
 
 const updateSupp = (req, res) => {
-    const newSupplier = {
-        // id: req.body.id,
-        name: req.body.name,
-    };
+    // const newSupplier = {
+    //     // id: req.body.id,
+    //     name: req.body.name,
+    // };
     Suppliers.updateOne({id: req.params.id},{$set:{name: req.body.name}})
         .then((data) => res.json({ msg: "Supplier updated: ", data }))
         .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));

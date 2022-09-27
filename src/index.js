@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require('express')
 const mongoose = require('mongoose')
 const filesystem = require('fs')
@@ -9,18 +8,17 @@ const { restart } = require('nodemon')
 const { json } = require('express')
 const { exit } = require('process')
 const app = express()
-const port = 3000
 const router = require("./routes");
 
 app.use(express.json());
 app.use(express.static("public"));
 app.use(router);
 
-mongoose.connect(process.env.DATABASE_URL)
+mongoose.connect('mongodb+srv://hlerda01:QBzkIuMc8cNIy3XS@clustermcga2022.q7tgwec.mongodb.net/?retryWrites=true&w=majority')
   .then(() => {
     console.log("🟢 DB Connected");
-    app.listen({ port: process.env.PORT }, () => {
-      console.log(`🚗 Server running on port ${process.env.PORT}`);
+    app.listen(  4000 , () => {
+      console.log(`🚗 Server running on port 4000`);
     });
   })
   .catch((err) => {
@@ -161,6 +159,6 @@ const filtrarEmployees = (id) => {
 //////*APIs for educational porpouses*//////
 
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+app.listen(3000, () => {
+  console.log(`Example app listening on port 4000`)
 })
