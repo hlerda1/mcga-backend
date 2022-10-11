@@ -6,7 +6,7 @@ const getAll = (req, res) => {
       .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
   }
 
-  const getSupplier = (req, res) => {
+const getSupplier = (req, res) => {
     Suppliers.find({ id: req.params.id })
       .then((data) => res.json({ data }))
       .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));

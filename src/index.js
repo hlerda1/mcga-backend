@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(router);
 
-mongoose.connect('mongodb+srv://hlerda01:QBzkIuMc8cNIy3XS@clustermcga2022.q7tgwec.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://hlerda01:QBzkIuMc8cNIy3XS@clustermcga2022.q7tgwec.mongodb.net/MCGADATABASE?retryWrites=true&w=majority')
   .then(() => {
     console.log("🟢 DB Connected");
     app.listen(  4000 , () => {
@@ -142,6 +142,6 @@ const filterProducts = (id) => {
 //////*APIs for educational porpouses*//////
 
 
-app.listen(3000, () => {
-  console.log(`Example app listening on port 4000`)
-})
+// app.listen(3000, () => {
+//   console.log(`Example app listening on port 4000`)
+// })

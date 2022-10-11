@@ -6,7 +6,7 @@ const getAll = (req, res) => {
       .catch((err) => res.status(500).json({ msg: `Error: ${err}` }));
   }
 
-  const create = (req, res) => {
+const create = (req, res) => {
     const newProduct = {
       id: req.body.id,
       name: req.body.name,
