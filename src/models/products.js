@@ -11,6 +11,14 @@ const productsSchema = new Schema({
         type: String,
         require: true,
     },
+    price:{
+        type: Number,
+        require: true,
+    },
+    stock:{
+        type: Number,
+        require: true,
+    },
     isDeleted:{
         type: Boolean,
         default: false,

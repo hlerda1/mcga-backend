@@ -10,6 +10,8 @@ const create = (req, res) => {
     const newProduct = {
       id: req.body.id,
       name: req.body.name,
+      price: req.body.price,
+      stock: req.body.stock,
     };
     Products.create(newProduct)
       .then((data) => res.json({ msg: "Product added: ", data }))
